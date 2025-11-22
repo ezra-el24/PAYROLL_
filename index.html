@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GRC Payroll Program</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>GRC PAYROLL PROGRAM</h2>
+    <form id="payrollForm">
+      <input type="text" id="idNumber" placeholder="ID Number" required />
+      <input type="text" id="lastName" placeholder="Last Name" required />
+      <input type="text" id="firstName" placeholder="First Name" required />
+      <input type="text" id="middleName" placeholder="Middle Name" required />
+      <input type="text" id="position" placeholder="Position" required />
+      <input type="number" id="rate" placeholder="Rate" required />
+      <input type="number" id="workDays" placeholder="Work Days" required />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("payrollForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const data = {
+        id: document.getElementById("idNumber").value,
+        lastName: document.getElementById("lastName").value,
+        firstName: document.getElementById("firstName").value,
+        middleName: document.getElementById("middleName").value,
+        position: document.getElementById("position").value,
+        rate: parseFloat(document.getElementById("rate").value),
+        days: parseInt(document.getElementById("workDays").value)
+      };
+      localStorage.setItem("payrollData", JSON.stringify(data));
+      window.location.href = "display.html";
+    });
+  </script>
+</body>
+</html>

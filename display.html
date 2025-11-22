@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payroll Summary</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef;
+      padding: 20px;
+    }
+    .summary {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+    }
+    .label {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="summary">
+    <h2>PAYROLL PROGRAM</h2>
+    <div id="output"></div>
+  </div>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem("payrollData"));
+    const grossPay = data.rate * data.days;
+    const sss = grossPay * 0.05;
+    const pagibig = grossPay * 0.03;
+    const philhealth = grossPay * 0.02;
+    const tax = grossPay * 0.05;
+    const totalDeduction = sss + pagibig + philhealth + tax;
+    const netPay = grossPay - totalDeduction;
+
+    document.getElementById("output").innerHTML = `
+      <div class="row"><div class="label">ID:</div><div>${data.id}</div></div>
+      <div class="row"><div class="label">NAME:</div><div>${data.lastName}, ${data.firstName} ${data.middleName}</div></div>
+      <div class="row"><div class="label">POSITION:</div><div>${data.position}</div></div>
+      <div class="row"><div class="label">RATE:</div><div>${data.rate.toFixed(2)}</div></div>
+      <div class="row"><div class="label">DAYS:</div><div>${data.days}</div></div>
+      <div class="row"><div class="label">GROSS PAY:</div><div>${grossPay.toFixed(2)}</div></div>
+      <div class="row"><div class="label">SSS (5%):</div><div>${sss.toFixed(2)}</div></div>
+      <div class="row"><div class="label">PAG-IBIG (3%):</div><div>${pagibig.toFixed(2)}</div></div>
+      <div class="row"><div class="label">PHILHEALTH (2%):</div><div>${philhealth.toFixed(2)}</div></div>
+      <div class="row"><div class="label">TAX (5%):</div><div>${tax.toFixed(2)}</div></div>
+      <div class="row"><div class="label">TOTAL DEDUCTION:</div><div>${totalDeduction.toFixed(2)}</div></div>
+      <div class="row"><div class="label">NET PAY:</div><div>${netPay.toFixed(2)}</div></div>
+    `;
+  </script>
+</body>
+</html>
